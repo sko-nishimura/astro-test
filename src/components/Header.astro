@@ -1,0 +1,233 @@
+---
+import Nav from '../components/Navigation.astro';
+---
+
+<header class="l-header">
+  <div class="l-header__inner">
+    <div class="c-siteName">Sample</div>
+
+    <button class="c-headerNav__toggle"><span></span></button>
+    <div class="c-headerNav">
+      <div class="c-headerNav__inner">
+        
+        <Nav />
+
+      </div>
+    </div>
+  </div>
+</header>
+
+<style lang="scss" is:global>
+  @use "../scss/_setting.scss" as *;
+
+  .l-header{
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    z-index: 5000;
+    box-shadow: 0 4px 10px rgba(#000,.1);
+    &__inner{
+      display: flex;
+      height: minset(60);
+      padding: 0 4%;
+      background-color: #fff;
+    }
+    .c-siteName{
+      display: flex;
+      align-items: center;
+      height: 100%;
+      line-height: 1;
+    }
+
+    .c-headerNav{
+      position: absolute;
+      right: 0;
+      top: minset(60);
+      width: 100%;
+      pointer-events: none;
+      &__toggle{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: minset(60);
+      height: minset(60);
+      transition: .5s;
+      z-index: 12;
+        span{
+          display: block;
+          position: relative;
+          width: 60%;
+          flex-basis: auto;
+          height: minset(2);
+          background-color: #333;
+          border-radius: 10px;
+          &::before,&::after{
+            display: block;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: inherit;
+            background-color: #333;		
+            border-radius: inherit;
+            content: "";
+          }
+          &::before{
+            transform: translateY(#{maxset(-12)});
+          }
+          &::after{
+            transform: translateY(#{minset(12)});
+          }
+        }
+        &.is-open{
+          &+.c-headerNav{
+            pointer-events: auto;
+            .c-headerNav__inner{
+              transform: translateX(0);
+            }
+          }
+          span{
+            background-color: transparent;
+            &::before{
+              transform: translateY(0) rotate(45deg);
+              animation: menuBtnTopOpen .5s;
+            }
+            &::after{
+              transform: translateY(0) rotate(-45deg);
+              animation: menuBtnBottomOpen .5s;
+            }
+          }
+        }
+        &.is-close{
+          &+.c-headerNav{
+            pointer-events: none;
+            .c-headerNav__inner{
+              transform: translateX(100%);
+            }
+          }
+          span{
+            background-color: #333;
+            &::before{
+              transform: translateY(#{maxset(-12)}) rotate(0);
+              animation: menuBtnTopClose .5s;
+            }
+            &::after{
+              transform: translateY(#{minset(12)}) rotate(0);
+              animation: menuBtnBottomClose .5s;
+            }
+          }
+        }
+      }
+      @keyframes menuBtnTopOpen{
+        0%{
+          transform: translateY(#{maxset(-12)}) rotate(0);
+        }
+        50%{
+          transform: translateY(0) rotate(0);
+        }
+        100%{
+          transform: translateY(0) rotate(45deg);
+        }
+      }
+      @keyframes menuBtnBottomOpen{
+        0%{
+          transform-origin: left top;
+          transform: translateY(#{minset(12)}) rotate(0);
+        }
+        50%{
+          transform-origin: left top;
+          transform: translateY(0) rotate(0);
+        }
+        51%{
+          transform-origin: center center;
+          transform: translateY(0) rotate(0);
+        }
+        100%{
+          transform-origin: center center;
+          transform: translateY(0) rotate(-45deg);
+        }
+      }
+      @keyframes menuBtnTopClose{
+        0%{
+          transform: translateY(0) rotate(45deg);
+        }
+        50%{
+          transform: translateY(0) rotate(0);
+        }
+        100%{
+          transform: translateY(#{maxset(-12)}) rotate(0);
+        }
+      }
+      @keyframes menuBtnBottomClose{
+        0%{
+          transform-origin: center center;
+          transform: translateY(0) rotate(-45deg);
+        }
+        49%{
+          transform-origin: center center;
+          transform: translateY(0) rotate(0);
+        }
+        50%{
+          transform-origin: left top;
+          transform: translateY(0) rotate(0);
+        }
+        100%{
+          transform-origin: left top;
+          transform: translateY(#{minset(12)}) rotate(0);
+        }
+      }
+      &__inner{
+        position: relative;
+        width: 100%;
+        max-width: 500px;
+        height: 100vh;
+        margin-left: auto;
+        padding-bottom: 200px;
+        background-color: $mainColor;
+        color: #fff;
+        overflow: scroll;
+        transform: translateX(100%);
+        transition: .5s;
+        
+        .c-navigation{
+          &__link{
+            padding: 0 1em;
+            height: 3.5em;
+          }
+        }
+      }
+    }
+  }
+
+</style>
+
+<script>
+function menuToggle(){
+  let scrollpos = 0;
+  const menuBtn = document.getElementsByClassName('c-headerNav__toggle');
+  const bodyElm = document.getElementsByTagName('body')
+
+  menuBtn[0].addEventListener('click',function(this: any){
+    if(menuBtn[0].classList.contains('is-open')){
+      bodyElm[0].classList.remove('is-fixed');
+      bodyElm[0].setAttribute('style','top:'+0);
+      window.scrollTo( 0 , scrollpos );
+      this.classList.add('is-close')
+      this.classList.remove('is-open')
+    }else{
+      scrollpos = window.scrollY;
+      this.classList.remove('is-close')
+      this.classList.add('is-open')
+      bodyElm[0].classList.add('is-fixed')
+      bodyElm[0].setAttribute('style','top:'+(-scrollpos));
+    }
+  })
+}
+
+menuToggle();
+</script>

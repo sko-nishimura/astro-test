@@ -1,0 +1,125 @@
+@use "setting" as *;
+@use "sass:math"; 
+
+
+@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,100,0,0");
+
+*{
+	box-sizing: border-box;
+	&::before,&::after{
+		box-sizing: border-box;
+	}
+}
+
+a{
+	color: inherit;
+	text-decoration: none;
+}
+
+ul,ol,li,dl,dt,dd{
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+table{
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+h1,h2,h3,h4,h5,h6,p{
+  margin: 0;
+  font-size: 100%;
+}
+
+img,video{
+	max-width: 100%;
+	height: auto;
+}
+
+sup{
+	vertical-align: super;
+	font-size: .75em;
+}
+
+input,
+select,
+textarea,
+button{
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  background: none;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  outline: none;
+	color: inherit;
+  font-family: inherit;
+}
+input::-ms-expand,
+select::-ms-expand,
+textarea::-ms-expand,
+button::-ms-expand{
+  display: none;
+}
+button{
+	display: block;
+  cursor: pointer;
+}
+
+input,
+textarea,
+select{
+	width: 100%;
+	border: 1px solid #ccc;
+	background: none;
+}
+
+html{
+	font-size: p2v(16);
+  @include mq('pc'){
+		font-size: min(#{(math.div(16, 1400) * 100vw)},16px);
+	}
+	@media screen and (min-width: 1400px){
+		font-size: 16px;
+	}	
+}
+
+body{
+  margin: 0;
+	color: #333;
+  font-family: 'yakuhanjp', 'Noto Sans JP', sans-serif;
+  line-height: 1.75;
+  font-display: swap;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+	font-size: 100%;
+	letter-spacing: .05em;
+  word-break: break-all;
+  &.is-fixed{
+    position: fixed;
+    left: 0;
+    width: 100%;
+  }
+}
+
+.l-wrapper{
+  padding-top: minset(60);
+}
+
+.text-align-center{
+  text-align: center;
+}
+
+
+
+
+.c-pageHeader{
+  background-color: $subColor;
+}
+.c-pageTitle{
+  padding: 1em 0 1.5em;
+  font-size: minset(36,48);
+  text-align: center;
+}

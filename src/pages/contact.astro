@@ -1,0 +1,137 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Section from '../layouts/Section.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Breadcrumb from '../components/breadcrumb.astro';
+---
+
+<Layout title="Welcome to Astro.">
+
+  <Header />
+
+	<main>
+    <div class="c-pageHeader">
+      <Breadcrumb page="Contact" parent="" parentLink="" />
+      <h1 class="c-pageTitle">Contact</h1>
+    </div>
+
+    <div class="l-form">
+
+      <div class="l-form__inner">
+
+        <div class="formBlock formBlock-require">
+          <div class="formBlock__label"><label for="name">お名前</label></div>
+          <div class="formBlock__item">
+            <div class="formBlock__input formBlock__input-text">
+              <input type="text" name="" id="name">
+            </div>
+          </div>
+          <!-- /.formBlock__item -->
+        </div>
+        <!-- /.formBlock -->
+    
+        <div class="formBlock formBlock-require">
+          <div class="formBlock__label"><label for="mail">メールアドレス</label></div>
+          <div class="formBlock__item">
+            <div class="formBlock__input formBlock__input-text">
+              <input type="email" name="" id="mail">
+            </div>
+          </div>
+          <!-- /.formBlock__item -->
+        </div>
+        <!-- /.formBlock -->
+    
+        <div class="formBlock">
+          <div class="formBlock__label"><label for="tel">お電話番号</label></div>
+          <div class="formBlock__item">
+            <div class="formBlock__input formBlock__input-text">
+              <input type="tel" name="" id="tel">
+            </div>
+          </div>
+          <!-- /.formBlock__item -->
+        </div>
+        <!-- /.formBlock -->
+    
+        <div class="formBlock formBlock-require">
+          <div class="formBlock__label"><label for="message">お問い合わせ内容</label></div>
+          <div class="formBlock__item">
+            <div class="formBlock__input formBlock__input-textarea">
+              <textarea name="" id=""></textarea>
+            </div>
+          </div>
+          <!-- /.formBlock__item -->
+        </div>
+        <!-- /.formBlock -->
+
+        <div class="formBtnBlock">
+          <button type="submit" class="formSubmitBtn" id="submitBtn">送信する</button>
+        </div>
+
+      </div>
+
+    </div>
+
+
+  </main>
+
+  <Footer />
+
+</Layout>
+
+<style lang="scss">
+  @use "../scss/_setting.scss" as *;
+	
+  .l-form {
+    padding: minset(80) 0;
+    &__inner{
+      width: 92%;
+      max-width: 850px;
+      margin: 0 auto;
+    }
+	}
+
+  .formBlock{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: .5em 1em;
+    padding: 1.5em 0;
+    input{
+      height: 3.5em;
+    }
+    textarea{
+      height: 10em;
+    }
+    &__label{
+      flex-basis: 15em;
+      flex-shrink: 0;
+    }
+    &__item{
+      flex-grow: 1;
+      min-width: 345px;
+    }
+  }
+
+  .formBtnBlock{
+    display: flex;
+    justify-content: center;
+    gap: 1em;
+    margin-top: minset(60);
+  }
+  .formSubmitBtn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    max-width: 400px;
+    height: 3.5em;
+    border-radius: 10px;
+    background-color: $mainColor;
+    color: #fff;
+    font-size: minset(16,18);
+    font-weight: bold;
+    text-align: center;
+  }
+
+</style>

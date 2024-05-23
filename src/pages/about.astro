@@ -1,0 +1,35 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Breadcrumb from '../components/breadcrumb.astro';
+import Section from '../layouts/Section.astro';
+import STitle from '../components/sectionTitle.astro';
+---
+
+
+<Layout title="About">
+
+  <Header />
+	<main>
+    <div class="c-pageHeader">
+      <Breadcrumb page="About" parent="" parentLink="" />
+      <h1 class="c-pageTitle">About</h1>
+    </div>
+
+    <Section>
+      <STitle title="Profile" sub="自己紹介" />
+    </Section>
+	</main>
+
+  <Footer />
+
+</Layout>
+
+<style lang="scss">
+  @use "../scss/_setting.scss" as *;
+	
+  main {
+	}
+
+</style>

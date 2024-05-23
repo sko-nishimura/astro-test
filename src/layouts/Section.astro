@@ -1,0 +1,19 @@
+<section class="l-section p-intro">
+  <div class="l-section__inner">
+    <slot />
+  </div>
+</section>
+
+
+<style lang="scss">
+  @use "../scss/_setting.scss" as *;
+
+  .l-section{
+    padding: minset(80,100) 0;
+    &__inner{
+      width: 92%;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+  }
+</style>

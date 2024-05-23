@@ -1,0 +1,31 @@
+---
+interface Props {
+	title: string;
+	sub: string;
+}
+
+const { title,sub } = Astro.props;
+---
+
+<div class="c-sectionTitle">
+  <h2 class="c-sectionTitle__heading">{title}</h2> 
+  <p class="c-sectionTitle__sub">{sub}</p>
+</div>
+
+<style lang="scss">
+  @use "../scss/_setting.scss" as *;
+  
+  
+  .c-sectionTitle{
+    margin-bottom: 3em;
+    text-align: center;
+    line-height: 1.5;
+    &__heading{
+      font-size: minset(24,32);
+    }
+    &__sub{
+      font-size: minset(14,16);
+      line-height: 1;
+    }
+  }
+</style>

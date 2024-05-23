@@ -1,0 +1,75 @@
+@use "sass:math"; 
+
+
+//function
+//pxをvwに変換
+@function p2v($px){
+  @return (math.div($px, 375) * 100vw);
+}
+
+//pxをemに変換
+@function em($size,$parent: 16){
+  @return (math.div($size, $parent) * 1em);
+}
+
+//pxをremに変換
+@function rem($size){
+  @return (math.div($size, 16) * 1rem);
+}
+
+//パーセント計算
+@function per($c,$p:375){
+  @return (math.div($c, $p) * 100%);
+}
+
+//最小値セット
+@function minset($r,$s:$r){
+	@return min(#{p2v($r)},#{($s * 1px)});
+}
+@function maxset($r,$s:$r){
+	@return max(#{p2v($r)},#{($s * 1px)});
+}
+
+
+$mainColor: #0074b3;
+$secondlyColor: #4db6e0;
+$subColor: #daf1fb;
+
+
+//breakpoint
+$breakpoint: 768px;
+$breakpoints:(
+  "pc": "(min-width: #{$breakpoint})",
+  "sp": "(max-width: #{$breakpoint - 1px})",
+  "wide":"(min-width: 1200px)"
+);
+@mixin mq($bp: sp) {
+	@media #{map-get($breakpoints, $bp)} {
+		@content;
+	}
+}
+
+@mixin iconR {//右
+	font-size: 1.5em;
+	font-weight: normal;
+	font-family: 'Material Symbols Outlined'; 
+	content: "\e5cc"
+}
+@mixin iconL {//左
+	font-size: 1.5em;
+	font-weight: normal;
+	font-family: 'Material Symbols Outlined'; 
+	content: "\e5cb"
+}
+@mixin iconU {//上
+	font-size: 1.5em;
+	font-weight: normal;
+	font-family: 'Material Symbols Outlined'; 
+	content: "\e5ce"
+}
+@mixin iconD {//下
+	font-size: 1.5em;
+	font-weight: normal;
+	font-family: 'Material Symbols Outlined'; 
+	content: "\e5cf"
+}

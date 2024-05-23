@@ -1,0 +1,36 @@
+---
+import Nav from '../components/Navigation.astro';
+---
+
+
+<footer class="l-footer">
+  <div class="l-footer__inner">
+    <div class="c-siteName">Sample</div>
+
+    <div class="l-footerNav">
+
+      <Nav />
+
+    </div>
+  </div>
+</footer> 
+
+<style lang="scss">
+  @use "../scss/_setting.scss" as *;
+
+  .l-footer{
+    padding-top: 3em;
+    padding-bottom: 3em;
+    background-color: #333;
+    color: #fff;
+    &__inner{
+      width: 92%;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+    .c-siteName{
+      margin-bottom: 2em;
+      font-size: 1.5em;
+    }
+  }
+</style>

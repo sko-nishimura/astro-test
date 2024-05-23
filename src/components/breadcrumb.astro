@@ -1,0 +1,49 @@
+---
+interface Props {
+	page: string;
+  parent: string
+  parentLink: string
+}
+
+const { page, parent, parentLink } = Astro.props;
+---
+
+<nav class="c-breadcrumb">
+  <ul class="c-breadcrumb__list">
+    <li class="c-breadcrumb__item"><a href="/">TOP</a></li>
+    {parent && <li class="c-breadcrumb__item"><a href={parentLink}>{parent}</a></li>}
+    <li class="c-breadcrumb__item">{page}</li>
+  </ul>
+</nav>
+
+<style lang="scss">
+  @use "../scss/_setting.scss" as *;
+
+  .c-breadcrumb{
+    width: 92vw;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 10px 0;
+    &__list{
+      display: flex;
+      align-items: center;
+    }
+    &__item{
+      display: flex;
+      align-items: center;
+      &::after{
+        @include iconR;
+        line-height: 1;
+      }
+      &:last-child{
+        &::after{
+          display: none;
+        }
+      }
+      a{
+        color: $mainColor;
+        text-decoration: underline;
+      }
+    }
+  }
+</style>

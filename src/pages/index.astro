@@ -1,0 +1,133 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Section from '../layouts/Section.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import STitle from '../components/sectionTitle.astro';
+import News from '../components/news.astro';
+import PR from '../components/PRblock.astro';
+
+//microCMS呼び出し
+import { getInfos } from "../library/microcms";
+const response = await getInfos({ fields: ["id", "title", "createdAt"] });
+
+function dateRewrite(d: any){
+  const currentY = d.substr(0,4);
+  const currentM = d.substr(5,2);
+  const currentD = d.substr(8,2);
+  const currentDate = currentY +'.'+ currentM +'.'+ currentD;
+  return currentDate;
+}
+
+//json
+const json = await fetch('https://sheets.googleapis.com/v4/spreadsheets/1vvm-zpuUtGlecZaZNAI42MUVwAS5OTrvgjGLwK_xgCM/values/news?key=AIzaSyAg7uSNBij2og542lFFgDJXME2Trg7NBlY');
+const data = await json.json();
+const newsList = new Map();
+for (let i = 1; i < 4; i++){
+  newsList.set('title', data.values[i][2]);
+  newsList.set('date', data.values[i][1]);
+  newsList.set('id', data.values[i][0]);
+  newsList.set('text', data.values[i][3]);
+}
+---
+
+
+<Layout title="Welcome to Astro.">
+
+  <Header />
+	<main>
+
+    <div class="p-topKv">
+      <img src="https://picsum.photos/2000/400" alt="">
+    </div>
+
+    <Section>
+
+        <h2 class="p-intro__catch">テキストテキストテキストテキストテキスト<br>テキストテキストテキストテキストテキストテキストテキストテキスト<br>テキストテキストテキストテキストテキスト</h2>
+
+        <div class="p-intro__lead">
+          <p>テキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト</p>
+          <p>テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト</p>
+          <p>テキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト</p>
+        </div>
+
+        <div class="c-prList">
+          <PR 
+            text="テキストテキストテキストテキストテキスト"
+            img="../img/icon01.png"
+          />
+          <PR 
+            text="テキストテキストテキストテキストテキスト"
+            img="../img/icon01.png"
+          />
+          <PR 
+            text="テキストテキストテキストテキストテキスト"
+            img="../img/icon01.png"
+          />
+        </div>
+
+      </Section>
+
+      <Section>
+        <STitle title="News" sub="お知らせ" />
+        <div class="newsList">
+          {/* {
+            response.contents.map((content: any) => (
+            <News
+              title={content.title}
+              date={dateRewrite(content.createdAt)}
+              href={'/'+content.id+'/'}
+            />
+            ))
+          } */}
+      {
+        data.values.slice(1).map((news:any) => (
+            <News
+              title={news[2]}
+              date={news[1]}
+              href={'/'+news[0]+'/'}
+            />
+        ))
+      }
+        </div>
+      </Section>
+	</main>
+
+  <Footer />
+
+</Layout>
+
+<style lang="scss">
+  @use "../scss/_setting.scss" as *;
+	
+  main {
+	}
+
+  .p-intro{
+    &__catch{
+      font-size: minset(18,24);
+      text-align: center;
+    }
+    &__lead{
+      margin-top: minset(40,60);
+      p+p{
+        margin-top: 1.5em;
+      }
+    }
+  }
+
+  .c-prList{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-top: minset(60);
+  }
+
+  .newsList{
+    margin-top: 60px;
+  }
+
+</style>
+
+<script>
+</script>

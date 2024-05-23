@@ -1,0 +1,59 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Breadcrumb from '../components/breadcrumb.astro';
+import Section from '../layouts/Section.astro';
+import STitle from '../components/sectionTitle.astro';
+import NewsList from '../components/news.astro';
+
+//microCMS呼び出し
+import { getInfos } from "../library/microcms";
+const response = await getInfos({ fields: ["id", "title", "createdAt"] });
+
+function dateRewrite(d: any){
+  const currentY = d.substr(0,4);
+  const currentM = d.substr(5,2);
+  const currentD = d.substr(8,2);
+  const currentDate = currentY +'.'+ currentM +'.'+ currentD;
+  return currentDate;
+}
+---
+
+
+<Layout title="News">
+
+  <Header />
+	<main>
+    <div class="c-pageHeader">
+      <Breadcrumb page="News" parent="" parentLink="" />
+      <h1 class="c-pageTitle">News</h1>
+    </div>
+
+    <Section>
+      <STitle title="News" sub="お知らせ" />
+      <div class="newsList">
+        {
+          response.contents.map((content: any) => (
+          <NewsList
+            title={content.title}
+            date={dateRewrite(content.createdAt)}
+            href={'/'+content.id+'/'}
+          />
+          ))
+        }
+      </div>
+    </Section>
+	</main>
+
+  <Footer />
+
+</Layout>
+
+<style lang="scss">
+  @use "../scss/_setting.scss" as *;
+	
+  main {
+	}
+
+</style>

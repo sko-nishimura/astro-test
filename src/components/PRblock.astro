@@ -1,0 +1,47 @@
+---
+interface Props {
+	text: string;
+  img: string;
+}
+
+const { text, img } = Astro.props;
+---
+
+<div class="c-prBlock">
+  <div class="c-prBlock__body">
+    <div class="c-prBlock__inner">
+      <div class="c-prBlock__icon"><img src={img} alt=""></div>
+      <div class="c-prBlock__text">{text}</div>
+    </div>
+  </div>
+</div>
+
+
+<style lang="scss">
+  @use "../scss/_setting.scss" as *;
+  .c-prBlock{
+    flex-basis: 30%;
+    flex-shrink: 0;
+    &__body{
+      position: relative;
+      width: 100%;
+      padding-top: 100%;
+      border-radius: 50%;
+      border: 2px solid $mainColor;
+      text-align: center;
+    }
+    &__inner{
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 100%;
+      padding: 2em;
+      transform: translate(-50%,-50%);
+    }
+    &__icon{
+      width: 50%;
+      max-width: 160px;
+      margin: 0 auto 10px;
+    }
+  }
+</style>
